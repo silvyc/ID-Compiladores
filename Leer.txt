@@ -4,8 +4,13 @@ Temas:
 direcciones donde el nombre de usuario puede contener separadores como: ., _, -.
 El sufijo de dominios solo puede contener: -, _, y el punto se usa para separar un
 nombre de dominio de otro. Un sufijo puede tener un solo dominio.
-CODIGO FUENETE CON EXPLICACIONES
+EXPLICACION GENERAL DEL PROGRAMA:
+La primera línea define la función "validar_email", que recibe un parámetro "$email"
+La segunda línea define un patrón guardado en la variable "$patron", que será usado para validar la dirección de correo electrónico. El patrón es una expresión regular.
+La tercera línea utiliza la función "preg_match()" para probar la dirección de correo electrónico contra el patrón. El valor booleano que devuelve se guarda en la variable "$valid".
+La cuarta línea usa una declaración "if" para verificar si la dirección de correo electrónico es válida. Si es válida, la función devuelve un mensaje indicando que la dirección es válida. Si no lo es, devuelve un mensaje indicando que no lo es.
 
+CODIGO FUENETE CON EXPLICACIONES
 <?php
 /*Validar_email valida un email con el patron especificado
     @param email string
@@ -16,36 +21,38 @@ function validar_email($email)
     $patron = '/^[a-z0-9]+([._-][a-z0-9]+)*@[a-z0-9]+([_-][a-z0-9]+)*(\.[a-z0-9]+([_-][a-z0-9]+)*){1}$/i';
     return preg_match($patron, $email);
 }
-
 /*Valida correo electrónico:
     @param email string
     @return un mensaje de éxito si el correo es válido
     @return un mensaje de invalido si el correo es no es válido
     */
-function validar($email)
-{
+function validar($email){
     if (validar_email($email)) {
         return "La dirección de correo electrónico es válida.";
     } else {
         return "La dirección de correo electrónico no es válida.";
     }
-
-
+}
 3. Determinar si una contraseña es válida por su longitud (8 caracteres), número
-de caracteres especiales (2), letras mayúsculas (2) / minúsculas (2), y dígitos (2)
+de caracteres especiales (2), letras mayúsculas (2) / minúsculas (2), y dígitos (2).
+EXPLICACION GENERAL DEL PROGRAMA:
+El programa se basa principalmente en una funcion que valida si los parámetros mínimos dados para una contraseña, en este caso; longitud (8 caracteres), número de caracteres especiales (2), letras mayúsculas (2) / minúsculas (2), y dígitos (2). Por medio del uso de expresiones regulares como:
+-strlen() que  nos devuelve la longitud de una cadena de caracteres 
+-preg_match_all() busca por la cadenas todas las apariciones de la expresión regular en la cadena, devolviendo la cantidad
+-[^\w] es la expresión regular para todos aquellos caracteres que no son letras ni números, en este caso caracteres especiales
+-[A-Z] es la e.r para letras mayúsculas y [a-z] es para las letras minúsculas
+-\d es la e.r para dígitos
 
 CODIGO FUENTE CON EXPLICACIONES
 <?php
 #Actividad 3
 function validar_contrasena($contrasena) {
     # Declaramos los caracteres minimos: longitud (8 caracteres), número de caracteres especiales (2), letras mayúsculas (2) / minúsculas 	(2), y dígitos (2).
-
     $longitud_minima = 8;
     $num_caracteres_especiales = 2;
     $num_letras_mayusculas = 2;
     $num_letras_minusculas = 2;
     $num_digitos = 2;
-
     # strlen() nos devuelve la longitud de una cadena de caracteres
     $longitud = strlen($contrasena);
     # preg_match_all() busca por la cadenas todas las apariciones de la expresion regular en la cadena, devolviendo la cantidad
@@ -56,24 +63,16 @@ function validar_contrasena($contrasena) {
     $letras_minusculas = preg_match_all('/[a-z]/', $contrasena);
     # \d es la e.r para digitos
     $digitos = preg_match_all('/\d/', $contrasena);
-
     #Validamos que las condiciones de la contrasena se cumplan
     if ($longitud >= $longitud_minima &&
         $caracteres_especiales >= $num_caracteres_especiales &&
         $letras_mayusculas >= $num_letras_mayusculas &&
         $letras_minusculas >= $num_letras_minusculas &&
         $digitos >= $num_digitos) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-// Ejemplo de uso
-$contrasena = "ABac123!@#";
-if (validar_contrasena($contrasena)) {
-    echo "La contraseña es válida";
-} else {
-    echo "La contraseña no es válida";
+	) {
+            echo "La constraseña es válida.";
+        } else {
+            echo "La constraseña no cumple con los parametros.";
+        }
 }
 ?>
